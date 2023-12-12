@@ -12,7 +12,8 @@ npm cache clean --force
 ng new my-app(nombre de aplicacion)</p>
 ```
 
-**MODULOS CON CLI**
+**MODULOS CON CLI**  
+モジュールの作成
 ```
 ng generate module nombre-del-modulo
 ng g m nombre-del modulo
@@ -33,7 +34,8 @@ import { MiComponente } from './mi-componente.component'
 export class MiModulo {}
 ```
 
-**COMPONENTS CON CLI**
+**COMPONENTS CON CLI**  
+コンポーネントの作成
 ```
 ng generate component nombre-del componente
 ng g c nombre-del componente
@@ -78,7 +80,9 @@ app.module.ts
 })
 ```
 
-**INPUT**
+**INPUT**  
+親コンポーネントから子コンポーネントに値を引き渡す   
+https://qiita.com/masaks/items/677195b78379e0877e24
 ```
 //Componente hijo
 @Input() datoEntrada: string;
@@ -93,7 +97,8 @@ valorDesdePadre = "Hola, mundo!"
 {{ datoEntrada }}
 ```
 
-**OUTPUT**
+**OUTPUT**  
+ 子コンポーネントから親コンポーネントにイベント(値)を引き渡す
 ```
 //Componente hijo
 @Output() messageEvent = new EventEmitter<string>();
@@ -122,7 +127,9 @@ receiveMessage(message: string){
 <p>Mensaje recibido en el padre {{ receivedMessage}}</p>
 ```
 
-**Servicio con Cli**
+**Servicio con Cli**  
+
+https://tech.quartetcom.co.jp/2023/02/28/angular-service-providing-guide/
 ```
 ng generate service nombre-del-servicio
 ng g s nombre-del-servicio
@@ -666,9 +673,34 @@ export class MiComponente implements OnDestroy {
     }
 }
 ```
+# API
+API  : Application Programing Interface   
+Rest : REpresentational State Transfer  
+REST API は、REST アーキテクチャの制約に従って、RESTful Web サービスとの対話を可能にする アプリケーション・プログラミング・インタフェース (API または Web API) です。REST (Representational State Transfer) は、コンピュータ・サイエンティストの Roy Fielding によって作成された API の構築方法を定義する仕様であり、REST 用に設計された REST API (または RESTful API) は軽量で高速であるため、IoT (モノのインターネット)、モバイル・アプリケーション開発、サーバーレス・コンピューティングなどの先進的なコンテキストに最適です。  
+https://www.redhat.com/ja/topics/api/what-is-a-rest-api  
+HttpClientModuleをインポート
+```
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+    declarations: [
+    //tus componentes aquí
+],
+    imports:[
+     HttpClientModule,
+    //otros módulos aquí
+],
+bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+```
+
 
 
 
 https://www.youtube.com/watch?v=soInCF7nbDw&t=11209s
+
+https://codechord.com/2012/01/readme-markdown/
 
 https://docs.github.com/ja/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
