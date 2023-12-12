@@ -728,7 +728,32 @@ postData(data:any): Observable<any> {
 }
 }
 ```
+```
+import { Component, OnInit } from '@angular/core';
+import { MyApiService } from 'ruta-al-servicio';
 
+@Component({
+ selector: 'app-mi-componente',
+ templateUrl: './mi-componente.component.html',
+ styleUrls:['./mi-componente.component.css']
+})
+export class MiComponenteComponent implements OnInit {
+constructor(private myApiService: MyApiService) { }
+
+ngOnInit(): void{
+this.myApiService.getData().subscribe({
+ next: (data:any) => {
+//Manejar la respuesta de la API exitosa (next)
+console.log(data);
+},
+error: (error:any) => {
+//Manejar errores
+console.error('Error en la solicitud HTTP:', error);
+}
+});
+}
+} 
+```
 
 
 
