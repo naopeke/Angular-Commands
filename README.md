@@ -128,7 +128,8 @@ receiveMessage(message: string){
 ```
 
 **Servicio con Cli**  
-
+サービスとは、アプリケーションのロジックやデータを扱うためのクラスです。  
+Angularでは基本的に、コンポーネントが画面の表示を担当し、サービスがその他の処理を担当するように設計します。  
 https://tech.quartetcom.co.jp/2023/02/28/angular-service-providing-guide/
 ```
 ng generate service nombre-del-servicio
@@ -147,7 +148,12 @@ export class MiServicioService {
       //Métodos y lógica del servicio
 }
 ```
-**Inyeccion de dependencias**
+**Inyeccion de dependencias**   
+依存性の注入  Inject関数  
+https://zenn.dev/tkawa01/articles/d7245446018de0  
+https://zenn.dev/lacolaco/articles/why-inject-function-wins  
+https://angular.jp/guide/dependency-injection  
+https://angular.jp/guide/dependency-injection-in-action
 ```
 import { Component } from '@anglar/core';
 import { MiServicio } from './mi-servicio.service';
@@ -165,7 +171,9 @@ export class MiComponente {
 }
 ```
 
-**Directiva**
+**Directiva**  
+https://zenn.dev/knts0/articles/8afe1dd9d8981daf8286
+ディレクティブ
 ```
 ng generate directive nombre-de-la-directiva
 ng g d nombre-de-la-directiva
