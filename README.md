@@ -756,8 +756,10 @@ console.error('Error en la solicitud HTTP:', error);
 } 
 ```
 **api fake products**  
-[https://github.com/keikaavousi/fake-store-api ](https://fakestoreapi.com/) 
-
+Fake Api  
+[https://github.com/keikaavousi/fake-store-api ](https://fakestoreapi.com/)  
+quicktype Convert JSON  
+https://quicktype.io/
 
 
 
