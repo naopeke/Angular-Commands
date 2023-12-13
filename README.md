@@ -759,8 +759,49 @@ console.error('Error en la solicitud HTTP:', error);
 Fake Api  
 [https://github.com/keikaavousi/fake-store-api ](https://fakestoreapi.com/)  
 quicktype Convert JSON  
-https://quicktype.io/
+https://quicktype.io/  
 
+**ngModel**  
+Angularで input 要素の value 属性を設定する場合、通常は ngModel ディレクティブを使います。  
+1. Angularフォームモジュールを利用するために FormsModule をインポート  
+```
+// app.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule, // FormsModuleをインポート
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+2. コンポーネントのテンプレートで ngModel ディレクティブを使って input 要素の value をバインド  
+```
+// app.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <input type="text" [(ngModel)]="value">
+    <p>Value: {{ value }}</p>
+  `,
+})
+export class AppComponent {
+  value: string = "initial value";
+}
+
+```
+Angular 12以降では、FormsModule が ReactiveFormsModule に統合
 
 
 https://www.youtube.com/watch?v=soInCF7nbDw&t=11209s
