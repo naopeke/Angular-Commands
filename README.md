@@ -1,4 +1,4 @@
-# Angular Tips
+# Angular Commands
 ```
 npm i -g @angular/cli@16.2.10
 ```
