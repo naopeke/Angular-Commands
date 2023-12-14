@@ -761,6 +761,101 @@ Fake Api
 quicktype Convert JSON  
 https://quicktype.io/  
 
+**Property Binding**
+Attributes - HTML => Attribute values cannot change  変化しない
+Properties - DOM (Document Object Model) => Property values can change  変化する　　
+https://www.youtube.com/watch?v=N8FBmB2jme8
+```
+<h2> Welcome {{ name }}}</h2>
+<input [id]="myId" type="text" value="Vishwas">
+<input id="{{ myId }}" type="text" value="Vishwas">
+// properties: myId
+//Interpolation（補間：変数や式を埋め込んで、文字列やコードの一部を生成するプロセス）には、Stringでしか使えないという制限がある。
+//HTMLプロパティのBooleanをバインドするときはInterpolationが使えない。
+<input disabled="false" id="{{ myId }}" type="text" value="Vishwas">
+<input disabled={{ false }} id="{{ myId }}" type="text" value="Vishwas">
+//この両方の場合、disabledが機能し、falseに意味はない。こういった場合に、プロパティバインディングを使う。  
+<input [disabled]="false" id="{{ myId }}" type="text" value="Vishwas">
+
+export class TestComponent implements OnInit {
+ public name = "Codevolution";
+ public myId = "testId";
+ constructor(){}
+
+ngOnInit(){}
+}
+```
+他の方法はクラスを作成する
+```
+<input [disabled]="isDisabled" id="{{ myId }}" type="text" value="Vishwas">
+<input bind-disabled="isDisabled" id="{{ myId }}" type="text" value="Vishwas">
+
+export class TestComponent implements OnInit {
+ public name = "Codevolution";
+ public myId = "testId";
+ public isDisabled = true;
+```
+
+**Class Binding**
+https://www.youtube.com/watch?v=Y6OP-lPJxgs
+```
+<h2 class="text-success">Codevolution</h2>
+<h2 [class]="sucessClass">Codevolution</h2>
+
+<h2 class="text-special" [class]="successClass">Codevolution</h2>
+// Not italic style. Regular class attribute becomes a dummy attribute
+<h2 [class.text-danger]="hasError">Codevolution</h2>
+//text-danger will be applied
+
+//To apply multiple classes, [ngClass]
+<h2 [ngClass]="messageClasses">Codevolution</h2>
+// public hasError = false, public isSpecial = true; => green and italic
+// public hasError = true, public isSpecial = true; => red and italic
+
+
+
+styles: [
+.text-success{
+color:green;
+}
+
+.text-danger{
+color:red;
+}
+
+.text-special {
+font-style:italic;
+}
+]
+export class TestComponent implements OnInit {
+ public name = "Codevolution";
+ public successClass = "text-success";
+ public hasError = true;
+ public isSpecial = true;
+ public messageClasses = {
+    "text-success": !this.hasError,
+    "text-danger": this.hasError,
+    "text-special": this.isSpecial
+}
+
+
+ constructor(){ }
+
+ ngOnInit(){
+ }
+}
+```
+**Style Binding**  
+https://www.youtube.com/watch?v=q256X6-u9Q8  
+
+**Event Binding**  
+https://www.youtube.com/watch?v=ZfIc1_oj7uM  
+
+**Two way binding**
+https://www.youtube.com/watch?v=DOWwWsbG1Sw
+
+**
+
 **ngModel**  
 Angularで input 要素の value 属性を設定する場合、通常は ngModel ディレクティブを使います。  
 1. Angularフォームモジュールを利用するために FormsModule をインポート  
