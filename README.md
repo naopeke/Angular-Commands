@@ -761,10 +761,10 @@ Fake Api
 quicktype Convert JSON  
 https://quicktype.io/  
 
-**Property Binding**
-Attributes - HTML => Attribute values cannot change  変化しない
+**Property Binding**  
+Attributes - HTML => Attribute values cannot change  変化しない  
 Properties - DOM (Document Object Model) => Property values can change  変化する　　
-https://www.youtube.com/watch?v=N8FBmB2jme8
+https://www.youtube.com/watch?v=N8FBmB2jme8  
 ```
 <h2> Welcome {{ name }}}</h2>
 <input [id]="myId" type="text" value="Vishwas">
@@ -796,8 +796,8 @@ export class TestComponent implements OnInit {
  public isDisabled = true;
 ```
 
-**Class Binding**
-https://www.youtube.com/watch?v=Y6OP-lPJxgs
+**Class Binding**  
+https://www.youtube.com/watch?v=Y6OP-lPJxgs  
 ```
 <h2 class="text-success">Codevolution</h2>
 <h2 [class]="sucessClass">Codevolution</h2>
@@ -851,8 +851,8 @@ https://www.youtube.com/watch?v=q256X6-u9Q8
 **Event Binding**  
 https://www.youtube.com/watch?v=ZfIc1_oj7uM  
 
-**Two way binding**
-https://www.youtube.com/watch?v=DOWwWsbG1Sw
+**Two way binding**  
+https://www.youtube.com/watch?v=DOWwWsbG1Sw  
 
 **
 
