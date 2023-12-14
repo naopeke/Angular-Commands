@@ -1001,7 +1001,152 @@ export class AppComponent {
 }
 
 ```
-Angular 12以降では、FormsModule が ReactiveFormsModule に統合
+Angular 12以降では、FormsModule が ReactiveFormsModule に統合  
+
+**ngIf**  
+https://www.youtube.com/watch?v=nWst87nQmZQ
+```
+// test.component.ts
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+    selector: 'app-test',
+    template:`
+     <h2 *ngIf="true">
+        Codevolution
+    </h2>
+    // "Codevolution" appears in the console
+
+    <h2 *ngIf="false">
+        Codevolution
+    </h2>
+    //"Codevolution" doesn't appear in the console
+    <h2 *ngIf="displayName">
+        Codevolution
+    </h2>
+    //displayName = true;
+    //"Codevolution" appears in the console
+    //displayName = false;
+    //"Codevolution" doesn't appear in the console
+
+    <h2 *ngIf="displayName; else elseBlock">Codevolution</h2>
+
+    <ng-template #elseBlock>
+    <h2>
+        Name is hidden
+    </h2>
+    </ng-template>
+    //else block is a reference to this block of HTML
+    //ng template tag is like a container for other elements that the ng-if directive can use to properly add or remove blocks of HTML from the DOM
+    //    displayName = false;
+    //  shows elseBlock "Name is hidden" appears in html
+
+    <div *ngIf="displayName; then thenBlock; else elseBlock"></div>
+    <ng-template #thenBlock>
+        <h2>Codevolution</h2>
+    </ng-template>
+
+    <ng-template #elseBlock>
+        <h2>Hidden</h2>
+    </ng-template>
+    // displayName = false;
+    // shows elseBlock "Hidden"
+    // displayName = true;
+    // shows thenBlock "Codevolution"
+ `,
+})
+export class TestComponent implements OnInit {
+
+    displayName = true;
+
+    constructor(){ }
+
+    ngOnInit(){
+    }
+}
+```
+**ngSwitch**  
+https://www.youtube.com/watch?v=WiDn2y1Ktws
+```
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+    selector: 'app-test',
+    template:`
+        <div [ngSwitch]="color">
+            <div *ngSwitchCase="'red'">You picked red color</div>
+            <div *ngSwitchCase="'blue'">You picked blue color</div>
+            <div *ngSwitchCase="'green'">You picked green color</div>
+            <div *ngSwitchDefault>Pick again</div>
+        </div>
+        
+ `,
+})
+export class TestComponent implements OnInit {
+
+    puclic color = "red";
+
+    constructor(){ }
+
+    ngOnInit(){
+    }
+}
+```
+**ngFor**  
+https://www.youtube.com/watch?v=Du3p6QYGs3A  
+```
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+    selector: 'app-test',
+    template:`
+        <div *ngFor="let color of colors">
+            <h2>{{ color }}</h2>
+        // red blue green yellow 
+        </div>
+
+        <div *ngFor="let color of colors; index as i">
+            <h2>{{i}} {{ color }}</h2>
+        // 0 red 1 blue 2 green 3 yellow
+        </div>
+
+        
+        <div *ngFor="let color of colors; first as f">
+            <h2>{{f}} {{ color }}</h2>
+        // true red false blue false green false yellow
+        </div>
+
+        <div *ngFor="let color of colors; last as l">
+            <h2>{{l}} {{ color }}</h2>
+        // false red false blue false green true yellow
+        </div>
+
+        <div *ngFor="let color of colors; odd as o">
+            <h2>{{o}} {{ color }}</h2>
+        // false red true blue false green true yellow (Odd numbe)
+        </div>
+
+        
+        <div *ngFor="let color of colors; even as e">
+            <h2>{{e}} {{ color }}</h2>
+        // true red false blue true green false yellow (Odd numbe)
+        </div>
+ `,
+})
+export class TestComponent implements OnInit {
+
+    puclic color = ["red", "blue", "green", "yellow"];
+
+    constructor(){ }
+
+    ngOnInit(){
+    }
+}
+```
+
+
+
+
 
 
 https://www.youtube.com/watch?v=soInCF7nbDw&t=11209s
