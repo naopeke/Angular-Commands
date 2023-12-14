@@ -798,6 +798,7 @@ export class TestComponent implements OnInit {
 
 **Class Binding**  
 https://www.youtube.com/watch?v=Y6OP-lPJxgs  
+test.component.ts  
 ```
 <h2 class="text-success">Codevolution</h2>
 <h2 [class]="sucessClass">Codevolution</h2>
@@ -847,14 +848,118 @@ export class TestComponent implements OnInit {
 ```
 **Style Binding**  
 https://www.youtube.com/watch?v=q256X6-u9Q8  
+```
+@Component({
+ selector: 'app-test',
+ template: `
+<h2> Welcome {{ name }} </h2>
+<h2 [style.color]="'orange'"> Style Binding</h2>
+<h2 [style.color]="hasError ? 'red' : 'green'"> Style Binding</h2>
+//hasError is true, red. if not, green.
+<h2 [style.color]="hightlightColor"> Style Binding</h2>
+//hightlightColor: orange
+<h2 [ngStyle]="titleStyles">Style Binding</h2>
+//blue
+`,
+styles: []
+})
+export class TestComponent implements OnInit {
+
+    public name = "Codevolution";
+    public hasError = false;
+    public isSpecial = true;
+    public hightlightColor = "orange";
+    public titleStyles = {
+        color:"blue",
+        fontStyle:"italic"
+}
+```
 
 **Event Binding**  
 https://www.youtube.com/watch?v=ZfIc1_oj7uM  
+```
+@Component({
+ selector: 'app-test',
+ template: `
+    <h2>Welcome {{ name }}</h2>
+    <button (click)="onClick( $event )">Greet</button>
+    //"Welcome to Codevolution" and MouseEvent in console
+
+    <button (click)="greeting='Welcome Vishwas'">Greet</button>
+    //"Welcome Vishwas" and no console
+
+    {{ greeting }}
+`,
+styles: []
+})
+export class TestComponent implements OnInit {
+
+    public name = "Codevolution";
+    public greeting="";
+
+    constructor(){ }
+
+    ngOnInit(){
+}
+
+    onClick(event){
+    console.log('Welcome to Codevolution');
+    this.greeting = 'Welcome to Codevolution'
+    this.greeting = event.type;
+    //"click" and MouseEvent in console
+
+```
+**Template Reference Variables**
+https://www.youtube.com/watch?v=Oo0-r_YhoJs  
+```
+@Component({
+ selector: 'app-test',
+ template: `
+    <h2>Welcome {{ name }}</h2>
+    <input #myInput type="text">
+    <button (click) ="logMessage(myInput.value)">Log</button>
+    //What you typed ("Vishwas") in the console
+
+    <button (click) ="logMessage(myInput)">Log</button>
+    //<input type="text"> in the console
+`,
+styles: []
+})
+export class TestComponent implements OnInit {
+
+    public name = "Codevolution";
+
+    constructor(){ }
+
+    ngOnInit(){
+}
+
+    logMessage(value){
+    console.log(value);
+}
+
+```
 
 **Two way binding**  
 https://www.youtube.com/watch?v=DOWwWsbG1Sw  
+```
+@Component({
+ selector: 'app-test',
+ template: `
+    <input [(ngModel)]="name" type="text">
+    {{ name }}
+`,
+ styles: []
+})
+export class TestComponent implements OnInit {
+    public name="";
 
-**
+    constructor(){ }
+    ngOnInit(){
+    }
+
+}
+```
 
 **ngModel**  
 Angularで input 要素の value 属性を設定する場合、通常は ngModel ディレクティブを使います。  
@@ -903,4 +1008,6 @@ https://www.youtube.com/watch?v=soInCF7nbDw&t=11209s
 
 https://codechord.com/2012/01/readme-markdown/
 
-https://docs.github.com/ja/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
+https://docs.github.com/ja/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax  
+
+https://code.visualstudio.com/docs/nodejs/angular-tutorial
