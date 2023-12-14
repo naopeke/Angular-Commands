@@ -1143,7 +1143,187 @@ export class TestComponent implements OnInit {
     }
 }
 ```
+**Component Interaction @Input**  
+app.component.ts
+```
+import { Component, OnInit } from '@angular/core';
 
+@Component({
+    selector: 'app-root',
+    templateUrl: '-/app.component.html',
+    styleUrls: ['./app.component.css]
+})
+export class AppComponent {
+    title = 'app';
+    public name = "Vishwas";
+}
+```
+app.component.html  [PARENT]
+```
+<div style="text-align:center">
+  <h1>
+    Welcome to {{title}}
+  </h1>
+</div>
+<app-test [parentData]="name"></app-test>
+```
+test.component.ts  [CHILD}
+```
+import { Component, OnInit, Input } from '@angular/core';
+
+@Component({
+    selector: 'app-root',
+    template:`
+
+        <h2>{{"Hello " + parentData}}</h2>
+        // "Hello Vishwas" in the browser
+`,
+    styles: []
+})
+export class TestComponent implements OnInit {
+
+    @Input() public parentData;
+
+    
+    @Input('parentData') public name;
+    //When you want to use the different property name than the one parent component uses, you can specify an alias
+    //I call this property as "name" within this componen, but input is still the parent data.
+    //In this case, <h2>{{"Hello " + name}}</h2>
+
+    constructor(){ }
+
+    ngOnInit(){ }
+}
+```
+ **Component Interaction @Output**  
+The way that a child component sends data to the parent component is using events.  
+Send "hello codevolution" from the text component to the app component, and display in the app component.  
+ app.component.html [PARENT]
+```
+<div style="text-align:center">
+    <h1>
+        {{ message }}
+    </h1>
+</div>
+<app-test (childEvent)="message=$event" [parentData]="name"></app-test>
+//this $ event variable is going to refer to "hey codevolution"
+```
+test.component.ts  [CHILD}
+```
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+@Component({
+    selector: 'app-test',
+    template:`
+
+        <h2>{{"Hello " + parentData}}</h2>
+        <button (click)="fireEvent()">Send Event</button>
+`,
+    styles: []
+})
+export class TestComponent implements OnInit {
+
+    @Input('parentData') public name;
+
+    @Output public childEvent = new EventEmitter();
+
+    constructor(){ }
+
+    ngOnInit(){ }
+}
+
+    fireEvent(){
+        this.childEvent.emit('Hey Codevolution');
+}
+}
+```
+app.component.ts
+```
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+    selector: 'app-root',
+    templateUrl: '-/app.component.html',
+    styleUrls: ['./app.component.css]
+})
+export class AppComponent {
+    title = 'app';
+    public name = "Vishwas";
+    pulic message ="";
+}
+```
+*On the latest Angular 6 version, in order to work, you will have to comment out the default import { EventEmitter } from 'events' and include  EventEmitter from '@angular/core'  
+**Pipes**  
+test.component.ts
+```
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+@Component({
+    selector: 'app-test',
+    template:`
+
+        <h2>{{ name }}</h2>
+        <h2>{{ name | lowercase }}</h2>
+        // codevolution
+        <h2>{{ name | uppercase }}</h2>
+        // CODEVOLUTION
+        <h2>{{ message | titlecase }}</h2>
+        // Welcome To Codevolution
+
+        <h2>{{ name | slice:3 }}</h2>
+        // evolution (from index 3)
+        <h2>{{ name | slice:3:5}}</h2>
+        // ev (index from 3 and 4, 5 is excluded)
+        <h2>{{ person | json }}</h2>
+        // {"firstName":"John", "lastName":"Doe"}
+
+        <h2>{{5.678 | number:'1.2-3'}}</h2>
+        // 5.678
+        <h2>{{5.678 | number:'3.4-5'}}</h2>
+        // 005.6780
+        <h2>{{5.678 | number:'3.1-2'}}</h2>
+        // 005.68
+
+        <h2>{{ 0.25 | percent }}</h2>
+        // 25%
+
+        <h2>{{ 0.25 | currency }}</h2>
+        // $0.25
+        <h2>{{ 0.25 | currency: 'GBP' }}</h2>
+        // £0.25
+        //ISO currency code: https://www.iso.org/iso-4217-currency-codes.html
+        <h2>{{ 0.25 | currency: 'GBP': 'code'}}</h2>
+        // GBP0.25
+
+        <h2>{{ date }}</h2>
+        // Sun Dec 03 2017 21:48:52 GMT+0530 (India Standard Time)
+        <h2>{{ date | date:'short' }}</h2>
+        //12/3/17, 9:49PM
+        <h2>{{ date | date:'shortDate' }}</h2>
+        //12/3/17
+        <h2>{{ date | date:'shortTime' }}</h2>
+        //9:50PM
+`,
+    styles: []
+})
+export class TestComponent implements OnInit {
+
+    public name = "Codevolution";
+    public message = "Welcome to codevolution";
+    public person = {
+        "firstName": "John",
+        "lastName": "Doe"
+}
+
+    public date = new Date();
+
+    constructor(){ }
+
+    ngOnInit(){ }
+}
+
+}
+```
 
 
 
