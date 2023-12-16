@@ -1324,8 +1324,22 @@ export class TestComponent implements OnInit {
 
 }
 ```
+
 **service**  
-https://www.youtube.com/watch?v=y8lwG8IM82k
+https://www.youtube.com/watch?v=y8lwG8IM82k  
+app.component.ts
+```
+import { Component } from '@angular/core';
+
+@Component({
+ selector:'app-root',
+ templateUrl:'./app.component.html',
+ styleUrls:['./app.component.css']
+})
+export class AppComponent {
+title='Codevolution0;
+}
+```
 
 
 
