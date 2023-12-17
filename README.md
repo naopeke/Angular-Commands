@@ -1327,6 +1327,20 @@ export class TestComponent implements OnInit {
 
 **service**  
 https://www.youtube.com/watch?v=y8lwG8IM82k  
+Do Not Repeat Yourself (DRY)  
+Single Responsibility Principle  
+=> Service :  -.service.ts
+A class with a specific purpose  
+1. Share data
+2. Implement application logic
+3. External Interaction
+
+Dependency Injection
+1. Code without DI -drawbacks  
+2. DI as a design pattern
+3. DI as a framework
+https://www.youtube.com/watch?v=OFPIGlxunL0
+
 app.component.ts
 ```
 import { Component } from '@angular/core';
@@ -1338,6 +1352,323 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 title='Codevolution0;
+}
+```
+employee-list.component.ts
+```
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+ selector: 'employee-list',
+ template: `
+ <h2>Employee List</h2>
+ <ul *ngFor="let employee of employees">
+    <li>{{ employee.name }}</li>
+</ul>
+`,
+ styles:[]
+})
+export class EmployeeListComponent implements OnInit {
+
+    public employees = [
+        {"id":1, "name": "Andrew", "age": 30},
+        {"id":2, "name": "Brandon", "age":25},
+        {"id":3, "name": "Christina", "age":26},
+        {"id":4, "name": "Elena", "age":28}
+];
+```
+employee-detail.component.ts
+```
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+ selector: 'employee-detail',
+ template: `
+ <h2>Employee Detail</h2>
+ <ul *ngFor="let employee of employees">
+    <li>{{employee.id}}. {{ employee.name }} - {{employee.age}}</li>
+</ul>
+`,
+ styles:[]
+})
+export class EmployeeListComponent implements OnInit {
+
+    constructor(){}
+
+    ngOnInit(){}
+
+```
+Code without DI
+```
+class Engine{
+ constructor(){}
+}
+class Tires{
+ constructor(){}
+}
+```
+```
+class Car{
+    engine;
+    tires;
+    constructor(){
+        this.engine = new Engine();
+        //class Engineのconstructor(parameter):petrol or diesel, にすると、new Engineがエラーになる
+        this.tires = new Tires();
+}
+```
+DI as a design pattern  
+DI is a coding pattern in which a class receives its dependencies from external sources rather than creating them itself.  
+without DI
+```
+class Car{
+    engine;
+    tires;
+    constructor()
+    {
+        this.engine = new Engine();
+        this.tires = new Tires ();
+}
+}
+```
+With DI
+```
+class Car{
+    engine;
+    tires;
+    constructor(engine, tires)
+    {
+        this.engine = engine;
+        this.tires = tires;
+    }
+```
+}
+```
+
+```
+var myEngine = new Engine();
+var myTires = new Tires ();|
+var myCar = new Car(myEngine, myTires);
+```
+
+```
+var myEngine = new Engine(parameter);
+var myTires = new Tires ();|
+var myCar = new Car(myEngine, myTires);
+```
+
+```
+var myEngine = new Engine(parameter);
+var myTires = new Tires(parameter);
+var myCar = new Car(myEngine, myTires);|
+```
+We can mock the data to suit our testing needs 
+```
+var oldEngine = new Engine(oldparameter);
+var oldTires = new Tires(oldparameter);
+var oldCar = new Car(oldEngine, old|Tires);
+//test with oldCar
+```
+```
+var newEngine = new Engine(newparameter);
+var newTires = new Tires(newparameter);
+var newCar = new Car(newEngine, new|tires);
+//test with newCar
+```
+when the number of dependencies grows, it becomes really difficult to manage the code.
+```
+var myEngine = new Engine();
+var myTires = new Tires();
+var depA = new dependency ();
+var depB = new dependency ();
+var depZ = new dependency ();
+var myCar = new Car (myEngine, myTires, depA, depB. debZ);|
+```
+```
+var myEngine = new Engine();
+var myTires = new Tires();
+var depA = new dependency();
+var depB = new dependency();|
+var depAB = new dependency();
+var depZ = new dependency (depAB);
+var myCar = new Car(myEngine, myTires, depA, depB, depZ);
+```
+DI as a framework  
+Injector  
+Engine   ServiceA  
+Tires    ServiceB  
+DepA     ServiceC  
+DepB     ..  
+...     ...  
+...    ...  
+DepZ     ServiceZ
+
+DI as a framework contd
+1. Define the EmployeeService class
+2. Register with Injector
+3. Declare as dependency in EmpList and EmpDetail
+    EmployeeService      injector
+    ↓　　　　　　　　↓
+EmpList        EmpDetail
+
+**Using a Service**
+https://www.youtube.com/watch?v=69VeYoKzL6I
+```
+ng g s employee
+```
+employee.service.ts
+```
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class EmployeeService{
+
+    constructor() {}
+
+    getEmployees(){
+     return [
+        {"id":1, "name": "Andrew", "age": 30},
+        {"id":2, "name": "Brandon", "age":25},
+        {"id":3, "name": "Christina", "age":26},
+        {"id":4, "name": "Elena", "age":28}
+];
+}
+}
+```
+employee-list.component.ts
+```
+export class EmployeeListComponent implements OnInit {
+
+    public employees = [
+     {"id":1, "name": "Andrew", "age": 30},
+        {"id":2, "name": "Brandon", "age":25},
+        {"id":3, "name": "Christina", "age":26},
+        {"id":4, "name": "Elena", "age":28}
+    ];
+
+    constructor() {}
+
+    ngOnInit(){
+    }
+}
+```
+employee-detail.component.ts
+```
+export class EmployeeDetailComponent implements OnInit {
+    public employees = [
+         {"id":1, "name": "Andrew", "age": 30},
+        {"id":2, "name": "Brandon", "age":25},
+        {"id":3, "name": "Christina", "age":26},
+        {"id":4, "name": "Elena", "age":28}
+    ];
+
+    constructor(){}
+
+    ngOnInit(){
+    }
+}
+```
+AppModule (Register)  
+  ↓
+AppComponent  
+  ↓         ↓
+EmpList   EmpDetail
+  ↓
+Child
+  ↓
+Child
+
+app.module.ts
+```
+import { EmployeeService } from './employee.service';
+
+@NgModule({
+
+ .....
+ imports: [
+  BrowserModule
+  ],
+ providers: [ EmployeeService],
+ bootstrap: ....  
+   
+employee-list.component.ts
+```
+import {EmployeeService}
+
+export class EmployeeListComponent implements OnInit {
+
+    public employees = [ ];
+
+    constructor(private_employeeService: EmployeeService) {}
+
+    ngOnInit(){
+        this.employees = this._employeeService.getEmployees();
+    }
+}
+```
+employee-detail.component.ts
+```
+export class EmployeeDetailComponent implements OnInit {
+    public employees = [ ];
+
+    constructor(private _employeeService: EmployeeService){}
+
+    ngOnInit(){
+        this.employees = this.employeeService.getEmployees();
+    }
+}
+```
+HTTP and Observables  
+https://www.youtube.com/watch?v=vj0kUzKOgGQ  
+Observables  
+A sequence of items that arrive asychronously over time.  
+HTTP call - single item  
+Single item - HTTP response  
+  
+HTTP, Observables and RxJS  
+1. HTTP Get request from EmpService
+2. Receive the observable and cast it into and employee array
+3. Subscribe to the observable from EmpList and EmpDetail
+4. Assign the employee array to a local variable
+  
+RxJS  
+- Reactive Extensions for Javascript
+- External library to work with Observables
+
+**Fetch Data Using HTTP**  
+https://www.youtube.com/watch?v=LmIsbzt-S_E  
+app.module.ts
+```
+import { HttpClientModule } from '@angular/common/http';
+
+...
+
+@NgModule({
+ ...
+
+ imports: [
+    BrowserModule,
+    HttpClientModule
+]
+```
+employee.service.ts
+```
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable()
+export class EmployeeService{
+
+    constructor(private http: HttpClient) {}
+
+    getEmployees(){
+     return [
+        {"id":1, "name": "Andrew", "age": 30},
+        {"id":2, "name": "Brandon", "age":25},
+        {"id":3, "name": "Christina", "age":26},
+        {"id":4, "name": "Elena", "age":28}
+];
+}
 }
 ```
 
