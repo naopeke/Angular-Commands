@@ -1672,6 +1672,25 @@ export class EmployeeService{
 }
 ```
 
+Bootstrap
+  https://es.stackoverflow.com/questions/478924/c%C3%B3mo-puedo-integrar-bootstrap-5-1-0-en-angular-12-2-2
+```
+npm install bootstrap --save
+ npm i jquery popper.js --save
+```
+2.angular.json --> architect
+```
+            "styles": [
+              "src/styles.css", 
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+
+            ],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/popper.js/dist/umd/popper.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
+```
 
 
 
