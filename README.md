@@ -1195,6 +1195,13 @@ export class TestComponent implements OnInit {
     ngOnInit(){ }
 }
 ```
+1.子コンポーネントに @Input プロパティを定義  
+![Captura desde 2023-12-21 10-01-39](https://github.com/naopeke/Angular_Commands/assets/143800388/04df3da9-c5e2-487f-b77c-7a89d7b0dcd7)
+  
+2.親コンポーネントから子コンポーネントにデータを渡す  
+![Captura desde 2023-12-21 10-01-56](https://github.com/naopeke/Angular_Commands/assets/143800388/22c7b30f-4e72-46fb-9de6-3c301c021c1c)
+
+
  **Component Interaction @Output**  
 The way that a child component sends data to the parent component is using events.  
 Send "hello codevolution" from the text component to the app component, and display in the app component.  
@@ -1253,6 +1260,15 @@ export class AppComponent {
 }
 ```
 *On the latest Angular 6 version, in order to work, you will have to comment out the default import { EventEmitter } from 'events' and include  EventEmitter from '@angular/core'  
+
+1.子コンポーネントに @Output プロパティを定義  
+![Captura desde 2023-12-21 10-08-34](https://github.com/naopeke/Angular_Commands/assets/143800388/d853f75c-680a-4051-99b7-0bd987629e55)  
+  
+2.親コンポーネントでイベントを受け取る  
+![Captura desde 2023-12-21 10-08-52](https://github.com/naopeke/Angular_Commands/assets/143800388/98417bbd-e522-4307-992a-222e4c3259bb)
+
+
+
 **Pipes**  
 test.component.ts
 ```
@@ -1673,7 +1689,6 @@ export class EmployeeService{
 ```
 
 Bootstrap
-  https://es.stackoverflow.com/questions/478924/c%C3%B3mo-puedo-integrar-bootstrap-5-1-0-en-angular-12-2-2
 ```
 npm install bootstrap --save
  npm i jquery popper.js --save
